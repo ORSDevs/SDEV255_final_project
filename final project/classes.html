@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="finalproject.css">
+    <title>Class List Page</title>
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <h1>Final Project</h1>
+            <img src="" alt="">
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="classes.html">Classes</a></li>
+            </ul>
+        </nav>
+
+    <main>
+        <div id="classListContainer">
+        </div>
+
+        <form id="classForm" onsubmit="saveClass(event)">
+            <label for="className">Class Name:</label>
+            <input type="text" id="className" name="className" required>
+
+            <label for="classDescription">Class Description:</label>
+            <textarea id="classDescription" name="classDescription" required></textarea>
+
+            <button type="submit">Save Class</button>
+        </form>
+    </main>
+
+    <footer>
+        &copy; 2024 <span class="project">final project</span><br>
+            <span>Derek Wayne Kolb, Charles Skylar Hickel, Olivia Stanich</span>
+    </footer>
+
+    <script>
+        const classListData = [
+            { id: 1, name: 'Math 101', description: 'Introduction to Algebra' },
+            { id: 2, name: 'History 201', description: 'World History' },
+
+        ];
+
+        function displayClassList() {
+            const classListContainer = document.getElementById('classListContainer');
+            classListContainer.innerHTML = '';
+
+            classListData.forEach(classItem => {
+                const classElement = document.createElement('div');
+                classElement.innerHTML = `
+                    <p><strong>${classItem.name}</strong></p>
+                    <p>${classItem.description}</p>
+                    <button onclick="editClass(${classItem.id})">Edit</button>
+                `;
+                classListContainer.appendChild(classElement);
+            });
+        }
+
+        function saveClass(event) {
+            event.preventDefault();
+
+            const className = document.getElementById('className').value;
+            const classDescription = document.getElementById('classDescription').value;
+
+            console.log("Class Name:", className);
+            console.log("Class Description:", classDescription);
+
+
+            document.getElementById('className').value = '';
+            document.getElementById('classDescription').value = '';
+
+            displayClassList();
+        }
+
+
+        function editClass(classId) {
+
+            const selectedClass = classListData.find(classItem => classItem.id === classId);
+            document.getElementById('className').value = selectedClass.name;
+            document.getElementById('classDescription').value = selectedClass.description;
+
+            displayClassList();
+        }
+
+        displayClassList();
+    </script>
+</body>
+</html>

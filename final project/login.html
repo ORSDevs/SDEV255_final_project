@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="finalproject.css">
+    <title>Login Page</title>
+</head>
+<body>
+   <div id="wrapper">
+        <header>
+            <h1>Final Project</h1>
+            <img src="" alt="">
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="classes.html">Classes</a></li>
+            </ul>
+
+        </nav>
+
+    <main>
+        <form id="loginForm" action="login.php" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+
+            <p class="reset-password"><a href="#" onclick="resetPassword()">Reset Password</a></p>
+            
+        </form>
+    </main>
+
+    <footer>
+       &copy; 2024 <span class="project">final project</span><br>
+            <span>Derek Wayne Kolb, Charles Skylar Hickel, Olivia Stanich</span>
+    </footer>
+
+    <script>
+        function resetPassword() {
+            const resetEmail = document.getElementById('resetEmail').value;
+
+            if (isValidEmail(resetEmail)) {
+                fetch('YOUR_SERVER_ENDPOINT/resetPassword', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: resetEmail }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
+</body>
+</html>
